@@ -2,7 +2,7 @@ import random
 
 size = 5
 
-board =[ ["" for i in range(size)] for j in range(size)]
+board =[ [" " for i in range(size)] for j in range(size)]
 vertical = [[] for i in range(size)]
 horizontal = [[] for i in range(size)]
 
@@ -21,6 +21,9 @@ def createboard():
             else:
                 if sum: horizontal[i].append(sum)
                 sum = 0
+        if sum: horizontal[i].append(sum)
+        if not horizontal[i]:
+            horizontal[i]=[0]
     for i,line in enumerate(board):
         sum =0
         for _ in line:
@@ -28,6 +31,9 @@ def createboard():
             else:
                 if sum: vertical[i].append(sum)
                 sum =0
+        if sum: vertical[i].append(sum)
+        if not vertical[i]:
+            vertical[i]=[0]
 
 
 
@@ -38,13 +44,27 @@ def printarray(array):
         print()
 
 def printboard():
-    global board,vertical,horizontal
-    print(horizontal)
-    for i,shit in enumerate(board):
-        print(vertical[i],end = " ")
-        for caca in shit:
-            print(caca,end = " ")
-        print()
+    global board, vertical, horizontal
+
+    formattedVertical = [' '.join(map(str, clue)) for clue in vertical]
+    maxVWidth = max(len(s) for s in formattedVertical) if vertical else 0
+
+    maxH = max(len(col) for col in horizontal) if horizontal else 0
+
+    for level in range(maxH):
+        line = ' ' * (maxVWidth + 1)
+        for col in horizontal:
+            startLevel = maxH - len(col)
+            if level >= startLevel:
+                line += f"{col[level - startLevel]} "
+            else:
+                line += "  "
+        print(line.rstrip())
+
+    for i, row in enumerate(board):
+        vClue = formattedVertical[i].rjust(maxVWidth)
+        print(f"{vClue} ", end="")
+        print(' '.join(row))
 
 createboard()
 printboard()
