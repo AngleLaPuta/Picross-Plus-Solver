@@ -3,7 +3,7 @@ import sys
 import random
 
 pygame.init()
-GRID_SIZE = 10
+GRID_SIZE = 5
 BOX_SIZE = 800/(GRID_SIZE+2)
 NUM_PADDING =  100
 SCREEN_WIDTH = 800
@@ -27,6 +27,7 @@ def createboard():
     vertical = [[] for i in range(GRID_SIZE)]
     horizontal = [[] for i in range(GRID_SIZE)]
     grid = [[' ' for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
+    board = [[' ' for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
     for i in range(GRID_SIZE):
         for j in range(GRID_SIZE):
             if random.randint(0,10)<6:
