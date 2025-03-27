@@ -1,10 +1,15 @@
 import random
+import pynput
+from pynput import keyboard
+from pynput.keyboard import Key
+
 
 size = 5
 
 board =[ [" " for i in range(size)] for j in range(size)]
 vertical = [[] for i in range(size)]
 horizontal = [[] for i in range(size)]
+x,y=0,0
 
 def createboard():
     global board,vertical,horizontal,size
@@ -68,3 +73,20 @@ def printboard():
 
 createboard()
 printboard()
+
+def on_key_release(key):
+    try:
+        if key.char == 'd':
+            print("Right key clicked")
+        elif key.char == 'a':
+            print("Left key clicked")
+        elif key.char == 'w':
+            print("Up key clicked")
+        elif key.char == 's':
+            print("\r", end = ' ')
+    except:
+        pass
+
+
+with keyboard.Listener(on_release=on_key_release) as listener:
+    listener.join()
